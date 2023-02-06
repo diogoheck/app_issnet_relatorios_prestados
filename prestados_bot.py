@@ -11,30 +11,28 @@ from remover_arquivos import remover_todos
 if __name__ == '__main__':
 
     try:
-        
 
         with open('R:\Compartilhado\Fiscal\lista_clientes_iss\senha.txt', 'r') as arquivo:
             credenciais = arquivo.readlines()
-        
+
         CPF = credenciais[0].replace('\n', '')
         SENHAS = credenciais[1].replace('\n', '').split()
         SENHAS = [int(senha) for senha in SENHAS]
-        
 
-        dt_inicial = '01/11/2022'
-        dt_final = '30/11/2022'
+        dt_inicial = '01/01/2023'
+        dt_final = '31/01/2023'
         data_lista = dt_inicial.split('/')
         competencia = data_lista[1] + data_lista[2]
 
         planilha = de.planilha()
         dic_empresas = de.criar_dicionario_empresas(planilha)
 
-        driver = acesso.criar_conexao(CPF, SENHAS)
+        # driver = acesso.criar_conexao(CPF, SENHAS)
 
-        ISS.exportar_empresas_prestados(
-            driver, dic_empresas, dt_inicial, dt_final)
+        # ISS.exportar_empresas_prestados(
+        #     driver, dic_empresas, dt_inicial, dt_final)
         # rename.renomear_arquivos_prestados(dic_empresas)
-        # copiar_rede.prestados(dic_empresas, competencia)
+        copiar_rede.prestados(dic_empresas, competencia)
 
     except:
         print('erro na execucao')

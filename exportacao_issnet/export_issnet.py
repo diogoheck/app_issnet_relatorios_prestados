@@ -15,6 +15,10 @@ PASTA_LIVRO_PRESTADOS = r'C:\ISS\livro_prestados'
 # PASTA_LIVRO_PRESTADOS = r'C:\ISS\livro_prestados'
 
 
+class Cliente:
+    primeiro = True
+
+
 def inserir_IE(driver, IE):
     driver.find_element(By.XPATH, '//*[@id="txtCae"]').send_keys(IE)
 
@@ -53,12 +57,12 @@ def seleciona_menu(driver):
 
 def seleciona_menu_livro_1(driver):
     driver.find_element(By.XPATH,
-        '//*[@id="Menu1_MenuPrincipal"]/ul/li[6]/div/span[3]').click()
+                        '//*[@id="Menu1_MenuPrincipal"]/ul/li[6]/div/span[3]').click()
 
 
 def seleciona_menu_livro_2(driver):
     driver.find_element(By.XPATH,
-        '//*[@id="Menu1_MenuPrincipal"]/ul/li[4]/div/span[3]').click()
+                        '//*[@id="Menu1_MenuPrincipal"]/ul/li[4]/div/span[3]').click()
 
 
 def seleciona_livro_fiscal(driver, IE, empresa):
@@ -72,12 +76,12 @@ def seleciona_livro_fiscal(driver, IE, empresa):
 
 def emitir_livro_fiscal_1(driver):
     driver.find_element(By.XPATH,
-        '//*[@id="Menu1_MenuPrincipal"]/ul/li[6]/ul/li/div/a').click()
+                        '//*[@id="Menu1_MenuPrincipal"]/ul/li[6]/ul/li/div/a').click()
 
 
 def emitir_livro_fiscal_2(driver):
     driver.find_element(By.XPATH,
-        '//*[@id="Menu1_MenuPrincipal"]/ul/li[4]/ul/li/div/a').click()
+                        '//*[@id="Menu1_MenuPrincipal"]/ul/li[4]/ul/li/div/a').click()
 
 
 def emitir_livro_fiscal(driver, simples, empresa):
@@ -90,7 +94,7 @@ def emitir_livro_fiscal(driver, simples, empresa):
 
 def switch_frame(driver):
     frame = driver.find_element(By.XPATH,
-        '//*[@id="iframe"]')
+                                '//*[@id="iframe"]')
     driver.switch_to.frame(frame)
 
 
@@ -100,7 +104,7 @@ def mudar_frame(driver):
 
 def switch_relatorio(driver):
     frame = driver.find_element(By.XPATH,
-        '//*[@id="viewer"]')
+                                '//*[@id="viewer"]')
     driver.switch_to.frame(frame)
 
 
@@ -126,8 +130,8 @@ def selecionar_tipo_livro(driver):
 
 
 def inserir_data_inicial(driver, dt_inicial):
-    driver.find_element(By.XPATH, 
-        '//*[@id="txtLivroFiscalDtInicial"]').send_keys(dt_inicial)
+    driver.find_element(By.XPATH,
+                        '//*[@id="txtLivroFiscalDtInicial"]').send_keys(dt_inicial)
 
 
 def selecionar_data_inicial_livro(driver, dt_inicial):
@@ -136,7 +140,7 @@ def selecionar_data_inicial_livro(driver, dt_inicial):
 
 def inserir_num_livro(driver):
     driver.find_element(By.XPATH,
-        '//*[@id="txtLivroFiscalNumLivro"]').send_keys('1')
+                        '//*[@id="txtLivroFiscalNumLivro"]').send_keys('1')
 
 
 def selecionar_num_livro(driver):
@@ -145,7 +149,7 @@ def selecionar_num_livro(driver):
 
 def inserir_pag_inicial(driver):
     driver.find_element(By.XPATH,
-        '//*[@id="txtLivroFiscalPagInicial"]').send_keys('1')
+                        '//*[@id="txtLivroFiscalPagInicial"]').send_keys('1')
 
 
 def selecionar_pag_inicial(driver):
@@ -154,7 +158,7 @@ def selecionar_pag_inicial(driver):
 
 def inserir_pag_final(driver, dt_final):
     driver.find_element(By.XPATH,
-        '//*[@id="txtLivroFiscalDtFinal"]').send_keys(dt_final)
+                        '//*[@id="txtLivroFiscalDtFinal"]').send_keys(dt_final)
 
 
 def selecionar_data_final_livro(driver, dt_final):
@@ -163,7 +167,7 @@ def selecionar_data_final_livro(driver, dt_final):
 
 def clica_entrar_empresa(driver):
     driver.find_element(By.XPATH,
-        '//*[@id="lblNomeEmpresa"]').click()
+                        '//*[@id="lblNomeEmpresa"]').click()
 
 
 def trocar_empresa(driver):
@@ -172,7 +176,7 @@ def trocar_empresa(driver):
 
 def clicar_botao_imprimir(driver):
     driver.find_element(By.XPATH,
-        '//a[@id="btnGerar"]').click()
+                        '//a[@id="btnGerar"]').click()
 
 
 def carregar_tela_impressao():
@@ -188,7 +192,21 @@ def gerar_livro_prestados(driver, IE, empresa, caminho, padrao, dt_inicial):
     mes = dt_inicial[3:5]
     ano = dt_inicial[6:10]
     nome_salvar = f'{PASTA_LIVRO_PRESTADOS}\\{empresa[4]} {mes}{ano}'
-    print('passei por aqui')
+
+    if Cliente.primeiro:
+        # nao salvar senha
+        pyautogui.click(1172, 339)
+        time.sleep(2)
+        lancamento_excecao(clicar_botao_imprimir, driver)
+        time.sleep(5)
+        pyautogui.click(1137, 46)
+        time.sleep(1)
+        pyautogui.click(924, 149)
+        time.sleep(1)
+        pyautogui.click(1165, 233)
+        time.sleep(2)
+        Cliente.primeiro = False
+
     lancamento_excecao(clicar_botao_imprimir, driver)
     print('passei por aqui 2')
     lancamento_excecao_telas(carregar_tela_impressao)
