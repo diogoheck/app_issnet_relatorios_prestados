@@ -198,7 +198,7 @@ def gerar_livro_prestados(driver, IE, empresa, caminho, padrao, dt_inicial):
         pyautogui.click(1172, 339)
         time.sleep(2)
         lancamento_excecao(clicar_botao_imprimir, driver)
-        time.sleep(5)
+        time.sleep(10)
         pyautogui.click(1137, 46)
         time.sleep(1)
         pyautogui.click(924, 149)
@@ -221,9 +221,9 @@ def gerar_livro_prestados(driver, IE, empresa, caminho, padrao, dt_inicial):
     time.sleep(2)
     # lancamento_excecao_telas(carregar_tela_impressao)
     # time.sleep(0.2)
-    pyautogui.click(x=1144, y=19)
-
+    pyautogui.click(1331, 14)
     # pyautogui.hotkey('alt', 'f4')
+    # time.sleep(2)
 
 
 def percorrer_menu_e_emitir_livro_sv_prestados(driver, IE, dt_inicial,
@@ -271,7 +271,7 @@ def exportar_empresas_prestados(driver, dic_empresas, dt_inicial, dt_final):
                                                    dt_final, simples,
                                                    empresa, caminho)
         caminho = True
-
+        time.sleep(2)
         # gerar segunda empresa em diante
         mudar_frame_principal(driver)
         trocar_empresa(driver)

@@ -59,7 +59,7 @@ def inserir_senha(driver, CPF, senhas):
 
     driver.maximize_window()
 
-    time.sleep(10)
+    time.sleep(20)
 
     print('here')
     dicionario = pega_botoes(driver)
